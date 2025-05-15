@@ -1,0 +1,26 @@
+
+import requests
+import json
+
+# Load emotion classification pipeline
+emotion_classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True)
+
+# Example social media/GitHub text
+texts = [
+    "I'm so happy to finally solve this issue!",
+    "This bug is really frustrating and wasting my time.",
+    "Could someone help me with this problem?",
+    "Awesome work on this release!"
+]
+
+# Analyze emotions
+def analyze_emotions(texts):
+    for text in texts:
+        print(f"Text: {text}")
+        emotions = emotion_classifier(text)[0]
+        emotions_sorted = sorted(emotions, key=lambda x: x['score'], reverse=True)
+        for emo in emotions_sorted:
+            print(f"{emo['label']}: {emo['score']:.2f}")
+        print("-" * 40)
+
+analyze_emotions(texts)
