@@ -1,0 +1,9 @@
+def analyze_emotions_top(texts):
+    for text in texts:
+        result = emotion_classifier(text)[0]
+        top_emotion = max(result, key=lambda x: x['score'])
+        print(f"Text: {text}")
+        print(f"Top Emotion: {top_emotion['label']} (score: {top_emotion['score']:.2f})")
+        print("-" * 40)
+
+analyze_emotions_top(texts)
