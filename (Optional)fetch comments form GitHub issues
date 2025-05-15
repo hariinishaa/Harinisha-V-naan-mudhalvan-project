@@ -1,0 +1,15 @@
+def get_github_comments(repo_owner, repo_name, issue_number, token):
+    headers = {"Authorization": f"token {token}"}
+    url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues/{issue_number}/comments"
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        comments = [comment['body'] for comment in response.json()]
+        return comments
+    else:
+        print("Failed to fetch comments")
+        return []
+
+# Example usage
+# token = "your_github_personal_access_token"
+# comments = get_github_comments("octocat", "Hello-World", 1, token)
+# analyze_emotions(comments)
